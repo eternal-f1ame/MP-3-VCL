@@ -1,0 +1,5 @@
+torch
+streamlit
+torchvision
+numpy
+albumentations
