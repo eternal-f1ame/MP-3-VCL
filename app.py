@@ -5,6 +5,7 @@ import torch
 from torch.nn import DataParallel
 import torch.nn as nn
 import albumentations as A
+import gdown
 
 # Hyper Params
 INPUT_IMG_SIZE = 128
@@ -66,7 +67,9 @@ class SegNet(nn.Module):
 # Load model
 model = SegNet(OUTPUT_CLASSES)
 model = DataParallel(model)
-model.load_state_dict(torch.load('results/checkpoint.ckp')['state_dict'])
+model_download_link = "https://drive.google.com/uc?id=1qvADAuvsvt-bGSJuIPU5SuKaf-0v_Xul&export=download"
+gdown.download(model_download_link, 'checkpoint.ckp', quiet=True)
+model.load_state_dict(torch.load('checkpoint.ckp')['state_dict'])
 
 model = model.module
 model.cpu()
