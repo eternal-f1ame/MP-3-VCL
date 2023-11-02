@@ -69,10 +69,12 @@ model = SegNet(OUTPUT_CLASSES)
 model = DataParallel(model)
 model_download_link = "https://drive.google.com/uc?id=1qvADAuvsvt-bGSJuIPU5SuKaf-0v_Xul&export=download"
 gdown.download(model_download_link, 'checkpoint.ckp', quiet=True)
-model.load_state_dict(torch.load('checkpoint.ckp')['state_dict'])
+model.load_state_dict(torch.load('checkpoint.ckp', map_location=torch.device('cpu'))['state_dict'])
 
 model = model.module
 model.cpu()
+
+
 model.eval()
 
 transform = A.Compose([A.Resize(INPUT_IMG_SIZE, INPUT_IMG_SIZE),
